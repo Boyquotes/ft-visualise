@@ -3,38 +3,38 @@
 [node name="Menu" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 120.0
-margin_top = 80.0
-margin_right = -120.0
-margin_bottom = -80.0
+margin_left = 60.0
+margin_top = 40.0
+margin_right = -60.0
+margin_bottom = -40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MenuStackContainer" type="VBoxContainer" parent="."]
-margin_right = 1126.0
-margin_bottom = 608.0
+margin_right = 734.0
+margin_bottom = 400.0
 
 [node name="TitleContainer" type="CenterContainer" parent="MenuStackContainer"]
-margin_right = 1126.0
+margin_right = 734.0
 margin_bottom = 14.0
 size_flags_vertical = 0
 
 [node name="TitleLabel" type="Label" parent="MenuStackContainer/TitleContainer"]
-margin_left = 525.0
-margin_right = 601.0
+margin_left = 329.0
+margin_right = 405.0
 margin_bottom = 14.0
 text = "FT-Visualise"
 align = 1
 
 [node name="LoadListContainer" type="VBoxContainer" parent="MenuStackContainer"]
 margin_top = 18.0
-margin_right = 1126.0
-margin_bottom = 608.0
+margin_right = 734.0
+margin_bottom = 400.0
 size_flags_vertical = 3
 
 [node name="Pulse1Container" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
-margin_right = 1126.0
+margin_right = 734.0
 margin_bottom = 20.0
 
 [node name="Pulse1Button" type="Button" parent="MenuStackContainer/LoadListContainer/Pulse1Container"]
@@ -51,7 +51,7 @@ text = "..."
 
 [node name="Pulse2Container" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 24.0
-margin_right = 1126.0
+margin_right = 734.0
 margin_bottom = 44.0
 
 [node name="Pulse2Button" type="Button" parent="MenuStackContainer/LoadListContainer/Pulse2Container"]
@@ -68,7 +68,7 @@ text = "..."
 
 [node name="TriangleContainer" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 48.0
-margin_right = 1126.0
+margin_right = 734.0
 margin_bottom = 68.0
 
 [node name="TriangleButton" type="Button" parent="MenuStackContainer/LoadListContainer/TriangleContainer"]
@@ -85,7 +85,7 @@ text = "..."
 
 [node name="NoiseContainer" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 72.0
-margin_right = 1126.0
+margin_right = 734.0
 margin_bottom = 92.0
 
 [node name="NoiseButton" type="Button" parent="MenuStackContainer/LoadListContainer/NoiseContainer"]
@@ -102,7 +102,7 @@ text = "..."
 
 [node name="DPCMContainer" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 96.0
-margin_right = 1126.0
+margin_right = 734.0
 margin_bottom = 116.0
 
 [node name="DPCMButton" type="Button" parent="MenuStackContainer/LoadListContainer/DPCMContainer"]
