@@ -1,11 +1,4 @@
-[gd_scene load_steps=3 format=2]
-
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://ft-visualise/Assets/Fonts/NotoSans-Bold.ttf"
-
-[sub_resource type="DynamicFont" id=2]
-size = 48
-font_data = SubResource( 1 )
+[gd_scene format=2]
 
 [node name="Menu" type="MarginContainer"]
 anchor_right = 1.0
@@ -18,102 +11,106 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TitleContainer" type="CenterContainer" parent="."]
+[node name="MenuStackContainer" type="VBoxContainer" parent="."]
 margin_right = 1126.0
-margin_bottom = 67.0
-size_flags_vertical = 2
+margin_bottom = 608.0
 
-[node name="TitleLabel" type="Label" parent="TitleContainer"]
-margin_left = 420.0
-margin_right = 705.0
-margin_bottom = 67.0
-custom_fonts/font = SubResource( 2 )
+[node name="TitleContainer" type="CenterContainer" parent="MenuStackContainer"]
+margin_right = 1126.0
+margin_bottom = 14.0
+size_flags_vertical = 0
+
+[node name="TitleLabel" type="Label" parent="MenuStackContainer/TitleContainer"]
+margin_left = 525.0
+margin_right = 601.0
+margin_bottom = 14.0
 text = "FT-Visualise"
 align = 1
 
-[node name="LoadListContainer" type="VBoxContainer" parent="."]
+[node name="LoadListContainer" type="VBoxContainer" parent="MenuStackContainer"]
+margin_top = 18.0
 margin_right = 1126.0
-margin_bottom = 116.0
-size_flags_vertical = 0
+margin_bottom = 608.0
+size_flags_vertical = 3
 
-[node name="Pulse1Container" type="HBoxContainer" parent="LoadListContainer"]
+[node name="Pulse1Container" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_right = 1126.0
 margin_bottom = 20.0
 
-[node name="Pulse1Button" type="Button" parent="LoadListContainer/Pulse1Container"]
+[node name="Pulse1Button" type="Button" parent="MenuStackContainer/LoadListContainer/Pulse1Container"]
 margin_right = 93.0
 margin_bottom = 20.0
 text = "Load Pulse 1"
 
-[node name="Pulse1Label" type="Label" parent="LoadListContainer/Pulse1Container"]
+[node name="Pulse1Label" type="Label" parent="MenuStackContainer/LoadListContainer/Pulse1Container"]
 margin_left = 97.0
 margin_top = 3.0
 margin_right = 109.0
 margin_bottom = 17.0
 text = "..."
 
-[node name="Pulse2Container" type="HBoxContainer" parent="LoadListContainer"]
+[node name="Pulse2Container" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 24.0
 margin_right = 1126.0
 margin_bottom = 44.0
 
-[node name="Pulse2Button" type="Button" parent="LoadListContainer/Pulse2Container"]
+[node name="Pulse2Button" type="Button" parent="MenuStackContainer/LoadListContainer/Pulse2Container"]
 margin_right = 93.0
 margin_bottom = 20.0
 text = "Load Pulse 2"
 
-[node name="Pulse2Label" type="Label" parent="LoadListContainer/Pulse2Container"]
+[node name="Pulse2Label" type="Label" parent="MenuStackContainer/LoadListContainer/Pulse2Container"]
 margin_left = 97.0
 margin_top = 3.0
 margin_right = 109.0
 margin_bottom = 17.0
 text = "..."
 
-[node name="TriangleContainer" type="HBoxContainer" parent="LoadListContainer"]
+[node name="TriangleContainer" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 48.0
 margin_right = 1126.0
 margin_bottom = 68.0
 
-[node name="TriangleButton" type="Button" parent="LoadListContainer/TriangleContainer"]
+[node name="TriangleButton" type="Button" parent="MenuStackContainer/LoadListContainer/TriangleContainer"]
 margin_right = 96.0
 margin_bottom = 20.0
 text = "Load Triangle"
 
-[node name="TriangleLabel" type="Label" parent="LoadListContainer/TriangleContainer"]
+[node name="TriangleLabel" type="Label" parent="MenuStackContainer/LoadListContainer/TriangleContainer"]
 margin_left = 100.0
 margin_top = 3.0
 margin_right = 112.0
 margin_bottom = 17.0
 text = "..."
 
-[node name="NoiseContainer" type="HBoxContainer" parent="LoadListContainer"]
+[node name="NoiseContainer" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 72.0
 margin_right = 1126.0
 margin_bottom = 92.0
 
-[node name="NoiseButton" type="Button" parent="LoadListContainer/NoiseContainer"]
+[node name="NoiseButton" type="Button" parent="MenuStackContainer/LoadListContainer/NoiseContainer"]
 margin_right = 83.0
 margin_bottom = 20.0
 text = "Load Noise"
 
-[node name="NoiseLabel" type="Label" parent="LoadListContainer/NoiseContainer"]
+[node name="NoiseLabel" type="Label" parent="MenuStackContainer/LoadListContainer/NoiseContainer"]
 margin_left = 87.0
 margin_top = 3.0
 margin_right = 99.0
 margin_bottom = 17.0
 text = "..."
 
-[node name="DPCMContainer" type="HBoxContainer" parent="LoadListContainer"]
+[node name="DPCMContainer" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
 margin_top = 96.0
 margin_right = 1126.0
 margin_bottom = 116.0
 
-[node name="DPCMButton" type="Button" parent="LoadListContainer/DPCMContainer"]
+[node name="DPCMButton" type="Button" parent="MenuStackContainer/LoadListContainer/DPCMContainer"]
 margin_right = 84.0
 margin_bottom = 20.0
 text = "Load DPCM"
 
-[node name="DPCMLabel" type="Label" parent="LoadListContainer/DPCMContainer"]
+[node name="DPCMLabel" type="Label" parent="MenuStackContainer/LoadListContainer/DPCMContainer"]
 margin_left = 88.0
 margin_top = 3.0
 margin_right = 100.0
