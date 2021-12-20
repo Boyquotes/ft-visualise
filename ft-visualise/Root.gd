@@ -30,6 +30,18 @@ func formatMenuElements(container : MarginContainer) -> void:
 			for element in row.get_children():
 				if element is Button:
 					element.set('custom_fonts/font', self.getButtonFont())
+					
+					match element.text.to_upper():
+						'LOAD PULSE 1':
+							element.connect('pressed', self, '_on_Pulse1_pressed')
+						'LOAD PULSE 2':
+							element.connect('pressed', self, '_on_Pulse2_pressed')
+						'LOAD TRIANGLE':
+							element.connect('pressed', self, '_on_Triangle_pressed')
+						'LOAD NOISE':
+							element.connect('pressed', self, '_on_Noise_pressed')
+						'LOAD DPCM':
+							element.connect('pressed', self, '_on_DPCM_pressed')
 	
 func getTitleFont() -> DynamicFont:
 	var dynamic_font = DynamicFont.new()
@@ -44,3 +56,18 @@ func getButtonFont() -> DynamicFont:
 	dynamic_font.size = 32
 	
 	return dynamic_font
+	
+func _on_Pulse1_pressed():
+	print('Pulse 1')
+	
+func _on_Pulse2_pressed():
+	print('Pulse 2')
+	
+func _on_Triangle_pressed():
+	print('Pulse 3')
+	
+func _on_Noise_pressed():
+	print('Pulse 4')
+	
+func _on_DPCM_pressed():
+	print('Pulse 5')
