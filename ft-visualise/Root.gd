@@ -35,19 +35,29 @@ func formatMenuElements(container : MarginContainer) -> void:
 					match element.text.to_upper():
 						'LOAD PULSE 1':
 							element.connect('pressed', self, '_on_Pulse1_pressed')
-							labels['pulse1'] = element.get_parent().get_node('Pulse1Label')
+							
+							if not 'pulse1' in labels.keys():
+								labels['pulse1'] = element.get_parent().get_node('Pulse1Label')
 						'LOAD PULSE 2':
 							element.connect('pressed', self, '_on_Pulse2_pressed')
-							labels['pulse2'] = element.get_parent().get_node('Pulse2Label')
+							
+							if not 'pulse2' in labels.keys():
+								labels['pulse2'] = element.get_parent().get_node('Pulse2Label')
 						'LOAD TRIANGLE':
 							element.connect('pressed', self, '_on_Triangle_pressed')
-							labels['triangle'] = element.get_parent().get_node('TriangleLabel')
+							
+							if not 'triangle' in labels.keys():
+								labels['triangle'] = element.get_parent().get_node('TriangleLabel')
 						'LOAD NOISE':
 							element.connect('pressed', self, '_on_Noise_pressed')
-							labels['noise'] = element.get_parent().get_node('NoiseLabel')
+							
+							if not 'noise' in labels.keys():
+								labels['noise'] = element.get_parent().get_node('NoiseLabel')
 						'LOAD DPCM':
 							element.connect('pressed', self, '_on_DPCM_pressed')
-							labels['dpcm'] = element.get_parent().get_node('DPCMLabel')
+							
+							if not 'dpcm' in labels.keys():
+								labels['dpcm'] = element.get_parent().get_node('DPCMLabel')
 				elif element is Label:
 					element.set('custom_fonts/font', self.getLabelFont())
 	
@@ -72,9 +82,9 @@ func getLabelFont() -> DynamicFont:
 	
 	return dynamic_font
 	
-func _on_Pulse1_pressed():
+func setupDialog(ident : String) -> void:
 	var dialog = create_instance('res://ft-visualise/FileLoader/FileLoader.tscn')
-	dialog.setIdentifier('pulse1')
+	dialog.setIdentifier(ident)
 	
 	menu.add_child(dialog)
 	dialog.popup()
@@ -83,17 +93,20 @@ func _on_Pulse1_pressed():
 	dialog.connect('popup_hide', dialog, '_on_FileLoader_popup_hide')
 	dialog.connect('path_selected', self, '_on_FileLoader_path_selected')
 	
+func _on_Pulse1_pressed():
+	setupDialog('pulse1')
+	
 func _on_Pulse2_pressed():
-	print('Pulse 2')
+	setupDialog('pulse2')
 	
 func _on_Triangle_pressed():
-	print('Pulse 3')
+	setupDialog('triangle')
 	
 func _on_Noise_pressed():
-	print('Pulse 4')
+	setupDialog('noise')
 	
 func _on_DPCM_pressed():
-	print('Pulse 5')
+	setupDialog('dpcm')
 
 func _on_FileLoader_path_selected(path, ident):
 	if labels[ident]:
