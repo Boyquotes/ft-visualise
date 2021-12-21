@@ -58,7 +58,10 @@ func getButtonFont() -> DynamicFont:
 	return dynamic_font
 	
 func _on_Pulse1_pressed():
-	print('Pulse 1')
+	var dialog = create_instance('res://ft-visualise/FileLoader/FileLoader.tscn')
+	menu.add_child(dialog)
+	
+	dialog.popup()
 	
 func _on_Pulse2_pressed():
 	print('Pulse 2')
