@@ -62,6 +62,7 @@ func _on_Pulse1_pressed():
 	menu.add_child(dialog)
 	
 	dialog.popup()
+	dialog.connect('file_selected', dialog, '_on_FileLoader_file_selected')
 	
 func _on_Pulse2_pressed():
 	print('Pulse 2')

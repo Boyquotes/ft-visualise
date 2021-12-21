@@ -21,3 +21,9 @@ func applyMods():
 	
 	self.popup_centered_clamped(Vector2(720, 420))
 	self.add_filter('*.wav ; WAV Files')
+
+func _on_FileLoader_file_selected(path: String):
+	if path:
+		print(path)
+	
+	self.propagate_call('queue_free', [])
