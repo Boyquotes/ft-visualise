@@ -7,13 +7,13 @@ var labels = {}
 var menu = null
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _ready():
 	menu = create_instance('res://ft-visualise/UI/Menu.tscn')
 	self.add_child(menu)
 	
 	self.formatMenuElements(menu)
 	
-func create_instance(s):
+func create_instance(s : String) -> Node:
 	var scene = load(s)
 	return scene.instance()
 
@@ -93,21 +93,21 @@ func setupDialog(ident : String) -> void:
 	dialog.connect('popup_hide', dialog, '_on_FileLoader_popup_hide')
 	dialog.connect('path_selected', self, '_on_FileLoader_path_selected')
 	
-func _on_Pulse1_pressed():
+func _on_Pulse1_pressed() -> void:
 	setupDialog('pulse1')
 	
-func _on_Pulse2_pressed():
+func _on_Pulse2_pressed() -> void:
 	setupDialog('pulse2')
 	
-func _on_Triangle_pressed():
+func _on_Triangle_pressed() -> void:
 	setupDialog('triangle')
 	
-func _on_Noise_pressed():
+func _on_Noise_pressed() -> void:
 	setupDialog('noise')
 	
-func _on_DPCM_pressed():
+func _on_DPCM_pressed() -> void:
 	setupDialog('dpcm')
 
-func _on_FileLoader_path_selected(path, ident):
+func _on_FileLoader_path_selected(path : String, ident : String):
 	if labels[ident]:
 		labels[ident].text = path
