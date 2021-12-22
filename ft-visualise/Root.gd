@@ -21,7 +21,7 @@ func formatMenuElements(container : MarginContainer) -> void:
 	var header = container.find_node('TitleContainer')
 	var header_label = header.get_child(0)
 	
-	if null != header_label:
+	if null != header_label and header_label is Label:
 		header_label.set('custom_fonts/font', self.getTitleFont())
 	
 	var button_container = container.find_node('LoadListContainer')
@@ -60,6 +60,13 @@ func formatMenuElements(container : MarginContainer) -> void:
 								labels['dpcm'] = element.get_parent().get_node('DPCMLabel')
 				elif element is Label:
 					element.set('custom_fonts/font', self.getLabelFont())
+					
+	var footer_container = container.find_node('StartContainer')
+	var footer_button = footer_container.get_child(0)
+	
+	if null != footer_button and footer_button is Button:
+		footer_button.set('custom_fonts/font', self.getButtonFont())
+		footer_button.connect('pressed', self, '_on_StartButton_pressed')
 	
 func getTitleFont() -> DynamicFont:
 	var dynamic_font = DynamicFont.new()
@@ -107,6 +114,9 @@ func _on_Noise_pressed() -> void:
 	
 func _on_DPCM_pressed() -> void:
 	setupDialog('dpcm')
+	
+func _on_StartButton_pressed() -> void:
+	print('Start.')
 
 func _on_FileLoader_path_selected(path : String, ident : String):
 	if labels[ident]:

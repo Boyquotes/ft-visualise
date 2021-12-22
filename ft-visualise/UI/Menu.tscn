@@ -30,7 +30,7 @@ align = 1
 [node name="LoadListContainer" type="VBoxContainer" parent="MenuStackContainer"]
 margin_top = 18.0
 margin_right = 734.0
-margin_bottom = 400.0
+margin_bottom = 376.0
 size_flags_vertical = 3
 
 [node name="Pulse1Container" type="HBoxContainer" parent="MenuStackContainer/LoadListContainer"]
@@ -116,3 +116,14 @@ margin_top = 3.0
 margin_right = 100.0
 margin_bottom = 17.0
 text = "..."
+
+[node name="StartContainer" type="CenterContainer" parent="MenuStackContainer"]
+margin_top = 380.0
+margin_right = 734.0
+margin_bottom = 400.0
+
+[node name="StartButton" type="Button" parent="MenuStackContainer/StartContainer"]
+margin_left = 346.0
+margin_right = 387.0
+margin_bottom = 20.0
+text = "Start"
