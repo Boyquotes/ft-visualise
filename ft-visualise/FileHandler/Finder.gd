@@ -31,11 +31,11 @@ func setIdentifier(ident : String) -> void:
 func getIdentifier() -> String:
 	return self.identifier
 
-func _on_FileLoader_file_selected(path: String) -> void:
+func _on_FileFinder_file_selected(path: String) -> void:
 	if path:
 		emit_signal('path_selected', path, self.getIdentifier())
 	
 	self.propagate_call('queue_free', [])
 	
-func _on_FileLoader_popup_hide() -> void:
+func _on_FileFinder_popup_hide() -> void:
 	self.propagate_call('queue_free', [])

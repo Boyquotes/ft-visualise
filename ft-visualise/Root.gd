@@ -90,15 +90,15 @@ func getLabelFont() -> DynamicFont:
 	return dynamic_font
 	
 func setupDialog(ident : String) -> void:
-	var dialog = create_instance('res://ft-visualise/FileLoader/FileLoader.tscn')
+	var dialog = create_instance('res://ft-visualise/FileHandler/Finder.tscn')
 	dialog.setIdentifier(ident)
 	
 	menu.add_child(dialog)
 	dialog.popup()
 	
-	dialog.connect('file_selected', dialog, '_on_FileLoader_file_selected')
-	dialog.connect('popup_hide', dialog, '_on_FileLoader_popup_hide')
-	dialog.connect('path_selected', self, '_on_FileLoader_path_selected')
+	dialog.connect('file_selected', dialog, '_on_FileFinder_file_selected')
+	dialog.connect('popup_hide', dialog, '_on_FileFinder_popup_hide')
+	dialog.connect('path_selected', self, '_on_FileFinder_path_selected')
 	
 func _on_Pulse1_pressed() -> void:
 	setupDialog('pulse1')
@@ -118,6 +118,6 @@ func _on_DPCM_pressed() -> void:
 func _on_StartButton_pressed() -> void:
 	print('Start.')
 
-func _on_FileLoader_path_selected(path : String, ident : String):
+func _on_FileFinder_path_selected(path : String, ident : String):
 	if labels[ident]:
 		labels[ident].text = path

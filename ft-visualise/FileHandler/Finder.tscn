@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://ft-visualise/FileLoader/FileLoader.gd" type="Script" id=1]
+[ext_resource path="res://ft-visualise/FileHandler/Finder.gd" type="Script" id=1]
 
-[node name="FileLoaderDialog" type="FileDialog"]
+[node name="FileFinderDialog" type="FileDialog"]
 margin_right = 315.0
 margin_bottom = 130.0
 size_flags_horizontal = 0
