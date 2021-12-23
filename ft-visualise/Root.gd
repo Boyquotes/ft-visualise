@@ -1,8 +1,5 @@
 extends Node
 
-var font_regular = load('res://ft-visualise/Assets/Fonts/NotoSans-Regular.ttf')
-var font_bold = load('res://ft-visualise/Assets/Fonts/NotoSans-Bold.ttf')
-
 var labels = {}
 var menu = null
 
@@ -22,7 +19,7 @@ func formatMenuElements(container : MarginContainer) -> void:
 	var header_label = header.get_child(0)
 	
 	if null != header_label and header_label is Label:
-		header_label.set('custom_fonts/font', self.getTitleFont())
+		header_label.set('custom_fonts/font', GlobalFont.getTitleFont())
 	
 	var button_container = container.find_node('LoadListContainer')
 	
@@ -30,7 +27,7 @@ func formatMenuElements(container : MarginContainer) -> void:
 		for row in button_container.get_children():
 			for element in row.get_children():
 				if element is Button:
-					element.set('custom_fonts/font', self.getButtonFont())
+					element.set('custom_fonts/font', GlobalFont.getButtonFont())
 					
 					match element.text.to_upper():
 						'LOAD PULSE 1':
@@ -59,35 +56,14 @@ func formatMenuElements(container : MarginContainer) -> void:
 							if not 'dpcm' in labels.keys():
 								labels['dpcm'] = element.get_parent().get_node('DPCMLabel')
 				elif element is Label:
-					element.set('custom_fonts/font', self.getLabelFont())
+					element.set('custom_fonts/font', GlobalFont.getLabelFont())
 					
 	var footer_container = container.find_node('StartContainer')
 	var footer_button = footer_container.get_child(0)
 	
 	if null != footer_button and footer_button is Button:
-		footer_button.set('custom_fonts/font', self.getButtonFont())
+		footer_button.set('custom_fonts/font', GlobalFont.getButtonFont())
 		footer_button.connect('pressed', self, '_on_StartButton_pressed')
-	
-func getTitleFont() -> DynamicFont:
-	var dynamic_font = DynamicFont.new()
-	dynamic_font.font_data = font_bold
-	dynamic_font.size = 48
-	
-	return dynamic_font
-	
-func getButtonFont() -> DynamicFont:
-	var dynamic_font = DynamicFont.new()
-	dynamic_font.font_data = font_regular
-	dynamic_font.size = 32
-	
-	return dynamic_font
-	
-func getLabelFont() -> DynamicFont:
-	var dynamic_font = DynamicFont.new()
-	dynamic_font.font_data = font_regular
-	dynamic_font.size = 16
-	
-	return dynamic_font
 	
 func setupDialog(ident : String) -> void:
 	var dialog = create_instance('res://ft-visualise/FileHandler/Finder.tscn')
@@ -99,6 +75,20 @@ func setupDialog(ident : String) -> void:
 	dialog.connect('file_selected', dialog, '_on_FileFinder_file_selected')
 	dialog.connect('popup_hide', dialog, '_on_FileFinder_popup_hide')
 	dialog.connect('path_selected', self, '_on_FileFinder_path_selected')
+	
+func verifyPaths() -> bool:
+	if 5 != len(labels):
+		return false
+	
+	for path in labels:
+		if not path:
+			return false
+		elif '...' == path:
+			return false
+		elif not path.begins_with('/'):
+			return false
+	
+	return true
 	
 func _on_Pulse1_pressed() -> void:
 	setupDialog('pulse1')
@@ -116,7 +106,14 @@ func _on_DPCM_pressed() -> void:
 	setupDialog('dpcm')
 	
 func _on_StartButton_pressed() -> void:
-	print('Start.')
+	if self.verifyPaths():
+		print('Start.')
+	else:
+		var notify_error = AcceptDialog.new()
+		notify_error.dialog_text = "Invalid file path(s) provided."
+		self.add_child(notify_error)
+		notify_error.popup_centered_clamped()
+		notify_error.popup()
 
 func _on_FileFinder_path_selected(path : String, ident : String):
 	if labels[ident]:
