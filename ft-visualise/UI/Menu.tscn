@@ -117,13 +117,13 @@ margin_right = 100.0
 margin_bottom = 17.0
 text = "..."
 
-[node name="StartContainer" type="CenterContainer" parent="MenuStackContainer"]
+[node name="ConfigContainer" type="CenterContainer" parent="MenuStackContainer"]
 margin_top = 380.0
 margin_right = 734.0
 margin_bottom = 400.0
 
-[node name="StartButton" type="Button" parent="MenuStackContainer/StartContainer"]
-margin_left = 346.0
-margin_right = 387.0
+[node name="ConfigButton" type="Button" parent="MenuStackContainer/ConfigContainer"]
+margin_left = 341.0
+margin_right = 392.0
 margin_bottom = 20.0
-text = "Start"
+text = "Config"

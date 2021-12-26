@@ -58,12 +58,12 @@ func formatMenuElements(container : MarginContainer) -> void:
 				elif element is Label:
 					element.set('custom_fonts/font', GlobalFont.getLabelFont())
 					
-	var footer_container = container.find_node('StartContainer')
+	var footer_container = container.find_node('ConfigContainer')
 	var footer_button = footer_container.get_child(0)
 	
 	if null != footer_button and footer_button is Button:
 		footer_button.set('custom_fonts/font', GlobalFont.getButtonFont())
-		footer_button.connect('pressed', self, '_on_StartButton_pressed')
+		footer_button.connect('pressed', self, '_on_ConfigButton_pressed')
 	
 func setupDialog(ident : String) -> void:
 	var dialog = create_instance('res://ft-visualise/FileHandler/Finder.tscn')
@@ -105,7 +105,7 @@ func _on_Noise_pressed() -> void:
 func _on_DPCM_pressed() -> void:
 	setupDialog('dpcm')
 	
-func _on_StartButton_pressed() -> void:
+func _on_ConfigButton_pressed() -> void:
 	if self.verifyPaths():
 		print('Start.')
 	else:
