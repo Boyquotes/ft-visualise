@@ -2,10 +2,11 @@ extends Node
 
 var labels = {}
 var menu = null
+var config = null
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	menu = create_instance('res://ft-visualise/UI/Menu.tscn')
+	config = create_instance('res://ft-visualise/UI/Config.tscn')
 	self.add_child(menu)
 	
 	self.formatMenuElements(menu)
@@ -80,12 +81,14 @@ func verifyPaths() -> bool:
 	if 5 != len(labels):
 		return false
 	
-	for path in labels:
+	for path in labels.values():
 		if not path:
 			return false
-		elif '...' == path:
+		elif not path.text:
 			return false
-		elif not path.begins_with('/'):
+		elif '...' == path.text:
+			return false
+		elif not path.text.begins_with('/'):
 			return false
 	
 	return true
@@ -107,7 +110,9 @@ func _on_DPCM_pressed() -> void:
 	
 func _on_ConfigButton_pressed() -> void:
 	if self.verifyPaths():
-		print('Start.')
+		menu.propagate_call('queue_free', [])
+		
+		self.add_child(config)
 	else:
 		var notify_error = AcceptDialog.new()
 		notify_error.dialog_text = "Invalid file path(s) provided."

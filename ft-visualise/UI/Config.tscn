@@ -1,0 +1,78 @@
+[gd_scene format=2]
+
+[node name="Config" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = 40.0
+margin_right = -60.0
+margin_bottom = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConfigStackContainer" type="VBoxContainer" parent="."]
+margin_right = 734.0
+margin_bottom = 400.0
+
+[node name="ConfigTitleContainer" type="CenterContainer" parent="ConfigStackContainer"]
+margin_right = 734.0
+margin_bottom = 14.0
+size_flags_vertical = 0
+
+[node name="ConfigTitleLabel" type="Label" parent="ConfigStackContainer/ConfigTitleContainer"]
+margin_left = 329.0
+margin_right = 405.0
+margin_bottom = 14.0
+text = "FT-Visualise"
+align = 1
+
+[node name="ConfigLoadListContainer" type="VBoxContainer" parent="ConfigStackContainer"]
+margin_top = 18.0
+margin_right = 734.0
+margin_bottom = 376.0
+size_flags_vertical = 3
+
+[node name="JSONContainer" type="HBoxContainer" parent="ConfigStackContainer/ConfigLoadListContainer"]
+margin_right = 734.0
+margin_bottom = 20.0
+
+[node name="JSONButton" type="Button" parent="ConfigStackContainer/ConfigLoadListContainer/JSONContainer"]
+margin_right = 77.0
+margin_bottom = 20.0
+text = "Load JSON"
+
+[node name="JSONLabel" type="Label" parent="ConfigStackContainer/ConfigLoadListContainer/JSONContainer"]
+margin_left = 81.0
+margin_top = 3.0
+margin_right = 93.0
+margin_bottom = 17.0
+text = "..."
+
+[node name="XMLContainer" type="HBoxContainer" parent="ConfigStackContainer/ConfigLoadListContainer"]
+margin_top = 24.0
+margin_right = 734.0
+margin_bottom = 44.0
+
+[node name="XMLButton" type="Button" parent="ConfigStackContainer/ConfigLoadListContainer/XMLContainer"]
+margin_right = 73.0
+margin_bottom = 20.0
+text = "Load XML"
+
+[node name="XMLLabel" type="Label" parent="ConfigStackContainer/ConfigLoadListContainer/XMLContainer"]
+margin_left = 77.0
+margin_top = 3.0
+margin_right = 89.0
+margin_bottom = 17.0
+text = "..."
+
+[node name="LaunchContainer" type="CenterContainer" parent="ConfigStackContainer"]
+margin_top = 380.0
+margin_right = 734.0
+margin_bottom = 400.0
+
+[node name="LaunchButton" type="Button" parent="ConfigStackContainer/LaunchContainer"]
+margin_left = 338.0
+margin_right = 395.0
+margin_bottom = 20.0
+text = "Launch"
