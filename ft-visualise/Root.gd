@@ -1,6 +1,8 @@
 extends Node
 
+var errors = []
 var labels = {}
+
 var menu = null
 var config = null
 
@@ -79,19 +81,35 @@ func setupDialog(ident : String) -> void:
 	
 func verifyPaths() -> bool:
 	if 5 != len(labels):
-		return false
-	
+		self.errors.append('Full path data not provided for parsing.')
+		
 	for path in labels.values():
 		if not path:
-			return false
+			errors.append('Non-existent label object provided.')
 		elif not path.text:
-			return false
+			errors.append('%s path missing.' % path.name)
 		elif '...' == path.text:
-			return false
+			errors.append('%s path missing.' % path.name)
 		elif not path.text.begins_with('/'):
-			return false
+			errors.append('%s path invalid.' % path.name)
 	
-	return true
+	if 0 < len(errors):
+		return false
+	else:
+		return true
+	
+func getErrorStrings() -> String:
+	var output = ''
+	
+	for error in errors:
+		output += (error + '\n')
+		
+	self.clearErrors()
+		
+	return output
+	
+func clearErrors() -> void:
+	self.errors = []
 	
 func _on_Pulse1_pressed() -> void:
 	setupDialog('pulse1')
@@ -115,7 +133,7 @@ func _on_ConfigButton_pressed() -> void:
 		self.add_child(config)
 	else:
 		var notify_error = AcceptDialog.new()
-		notify_error.dialog_text = "Invalid file path(s) provided."
+		notify_error.dialog_text = "Invalid file path(s) provided.\n\n" + self.getErrorStrings()
 		self.add_child(notify_error)
 		notify_error.popup_centered_clamped()
 		notify_error.popup()
