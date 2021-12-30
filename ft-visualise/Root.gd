@@ -4,6 +4,7 @@ var errors = []
 var labels_menu = {}
 var labels_config = {}
 
+# Scene instance variables.
 var menu = null
 var config = null
 
@@ -12,6 +13,7 @@ func _ready():
 	config = create_instance('res://ft-visualise/UI/Config.tscn')
 	self.add_child(menu)
 	
+	# Reshape the UI after instancing to apply custom font variables.
 	self.formatMenuElements(menu)
 	
 func create_instance(s : String) -> Node:
@@ -116,18 +118,25 @@ func setupDialog(base_container : MarginContainer, ident : String) -> void:
 	dialog.connect('popup_hide', dialog, '_on_FileFinder_popup_hide')
 	dialog.connect('path_selected', self, '_on_FileFinder_path_selected')
 	
+# Ensure that we attempt to check whether the
+# provided paths may or may not exist via
+# simple string validation.
 func verifyPaths() -> bool:
 	if 5 != len(labels_menu):
 		self.errors.append('Full path data not provided for parsing.')
 		
 	for path in labels_menu.values():
 		if not path:
+			# Label has been lost from the scene.
 			errors.append('Non-existent label object provided.')
 		elif not path.text:
+			# Label text is missing.
 			errors.append('%s path missing.' % path.name)
 		elif '...' == path.text:
+			# String still hasn't been modified since launch.
 			errors.append('%s path missing.' % path.name)
 		elif not path.text.begins_with('/'):
+			# Linux-specific path checks.
 			errors.append('%s path invalid.' % path.name)
 	
 	if 0 < len(errors):
@@ -141,6 +150,7 @@ func getErrorStrings() -> String:
 	for error in errors:
 		output += (error + '\n')
 		
+	# Remove existing errors to avoid later duplication.
 	self.clearErrors()
 		
 	return output
@@ -170,7 +180,7 @@ func _on_XML_pressed() -> void:
 	setupDialog(config, 'xml')
 	
 func _on_ConfigButton_pressed() -> void:
-	if true:
+	if self.verifyPaths():
 		menu.propagate_call('queue_free', [])
 		
 		self.add_child(config)
@@ -181,6 +191,9 @@ func _on_ConfigButton_pressed() -> void:
 		self.add_child(notify_error)
 		notify_error.popup_centered_clamped()
 		notify_error.popup()
+		
+func _on_LaunchButton_pressed() -> void:
+	pass
 
 func _on_FileFinder_path_selected(path : String, ident : String):
 	if labels_menu.has(ident) and labels_menu[ident]:
