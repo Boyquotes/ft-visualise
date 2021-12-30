@@ -163,6 +163,12 @@ func _on_Noise_pressed() -> void:
 func _on_DPCM_pressed() -> void:
 	setupDialog('dpcm')
 	
+func _on_JSON_pressed() -> void:
+	setupDialog('json')
+	
+func _on_XML_pressed() -> void:
+	setupDialog('xml')
+	
 func _on_ConfigButton_pressed() -> void:
 	if self.verifyPaths():
 		menu.propagate_call('queue_free', [])
@@ -179,3 +185,5 @@ func _on_ConfigButton_pressed() -> void:
 func _on_FileFinder_path_selected(path : String, ident : String):
 	if labels_menu[ident]:
 		labels_menu[ident].text = path
+	elif labels_config[ident]:
+		labels_config[ident].text = path
