@@ -105,11 +105,11 @@ func formatConfigElements(container : MarginContainer) -> void:
 		footer_button.set('custom_fonts/font', GlobalFont.getButtonFont())
 		footer_button.connect('pressed', self, '_on_LaunchButton_pressed')
 	
-func setupDialog(ident : String) -> void:
+func setupDialog(base_container : MarginContainer, ident : String) -> void:
 	var dialog = create_instance('res://ft-visualise/FileHandler/Finder.tscn')
 	dialog.setIdentifier(ident)
 	
-	menu.add_child(dialog)
+	base_container.add_child(dialog)
 	dialog.popup()
 	
 	dialog.connect('file_selected', dialog, '_on_FileFinder_file_selected')
@@ -149,28 +149,28 @@ func clearErrors() -> void:
 	self.errors = []
 	
 func _on_Pulse1_pressed() -> void:
-	setupDialog('pulse1')
+	setupDialog(menu, 'pulse1')
 	
 func _on_Pulse2_pressed() -> void:
-	setupDialog('pulse2')
+	setupDialog(menu, 'pulse2')
 	
 func _on_Triangle_pressed() -> void:
-	setupDialog('triangle')
+	setupDialog(menu, 'triangle')
 	
 func _on_Noise_pressed() -> void:
-	setupDialog('noise')
+	setupDialog(menu, 'noise')
 	
 func _on_DPCM_pressed() -> void:
-	setupDialog('dpcm')
+	setupDialog(menu, 'dpcm')
 	
 func _on_JSON_pressed() -> void:
-	setupDialog('json')
+	setupDialog(config, 'json')
 	
 func _on_XML_pressed() -> void:
-	setupDialog('xml')
+	setupDialog(config, 'xml')
 	
 func _on_ConfigButton_pressed() -> void:
-	if self.verifyPaths():
+	if true:
 		menu.propagate_call('queue_free', [])
 		
 		self.add_child(config)
@@ -183,7 +183,7 @@ func _on_ConfigButton_pressed() -> void:
 		notify_error.popup()
 
 func _on_FileFinder_path_selected(path : String, ident : String):
-	if labels_menu[ident]:
+	if labels_menu.has(ident) and labels_menu[ident]:
 		labels_menu[ident].text = path
-	elif labels_config[ident]:
+	elif labels_config.has(ident) and labels_config[ident]:
 		labels_config[ident].text = path
