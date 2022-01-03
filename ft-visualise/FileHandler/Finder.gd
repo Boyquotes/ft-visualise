@@ -5,6 +5,8 @@ signal path_selected(path, ident)
 var identifier = ''
 var initialPosition : Vector2
 
+var file_type = ''
+
 func _ready():
 	self.applyMods()
 	# Track initial popup location to clamp window to.
@@ -23,8 +25,14 @@ func applyMods() -> void:
 	self.mode = FileDialog.MODE_OPEN_FILE
 	
 	self.popup_centered_clamped(Vector2(720, 420))
-	self.add_filter('*.wav ; WAV Files')
+	self.add_filter(self.getFilter())
 	
+func setFilter(filter : String):
+	self.file_type = filter
+
+func getFilter() -> String:
+	return self.file_type
+
 func setIdentifier(ident : String) -> void:
 	self.identifier = ident
 	

@@ -92,11 +92,11 @@ func formatConfigElements(container : MarginContainer) -> void:
 							
 							if not 'json' in labels_config.keys():
 								labels_config['json'] = element.get_parent().get_node('JSONLabel')
-						'LOAD XML':
-							element.connect('pressed', self, '_on_XML_pressed')
+						'LOAD CSV':
+							element.connect('pressed', self, '_on_CSV_pressed')
 							
-							if not 'xml' in labels_config.keys():
-								labels_config['xml'] = element.get_parent().get_node('XMLLabel')
+							if not 'csv' in labels_config.keys():
+								labels_config['csv'] = element.get_parent().get_node('CSVLabel')
 				elif element is Label:
 					element.set('custom_fonts/font', GlobalFont.getLabelFont())
 					
@@ -107,8 +107,9 @@ func formatConfigElements(container : MarginContainer) -> void:
 		footer_button.set('custom_fonts/font', GlobalFont.getButtonFont())
 		footer_button.connect('pressed', self, '_on_LaunchButton_pressed')
 	
-func setupDialog(base_container : MarginContainer, ident : String) -> void:
+func setupDialog(base_container : MarginContainer, extension : String, ident : String) -> void:
 	var dialog = create_instance('res://ft-visualise/FileHandler/Finder.tscn')
+	dialog.setFilter(extension)
 	dialog.setIdentifier(ident)
 	
 	base_container.add_child(dialog)
@@ -159,28 +160,28 @@ func clearErrors() -> void:
 	self.errors = []
 	
 func _on_Pulse1_pressed() -> void:
-	setupDialog(menu, 'pulse1')
+	setupDialog(menu, '*.wav ; WAV Files', 'pulse1')
 	
 func _on_Pulse2_pressed() -> void:
-	setupDialog(menu, 'pulse2')
+	setupDialog(menu, '*.wav ; WAV Files', 'pulse2')
 	
 func _on_Triangle_pressed() -> void:
-	setupDialog(menu, 'triangle')
+	setupDialog(menu, '*.wav ; WAV Files', 'triangle')
 	
 func _on_Noise_pressed() -> void:
-	setupDialog(menu, 'noise')
+	setupDialog(menu, '*.wav ; WAV Files', 'noise')
 	
 func _on_DPCM_pressed() -> void:
-	setupDialog(menu, 'dpcm')
+	setupDialog(menu, '*.wav ; WAV Files', 'dpcm')
 	
 func _on_JSON_pressed() -> void:
-	setupDialog(config, 'json')
+	setupDialog(config, '*.json ; JSON Files', 'json')
 	
-func _on_XML_pressed() -> void:
-	setupDialog(config, 'xml')
+func _on_CSV_pressed() -> void:
+	setupDialog(config, '*.csv ; CSV Files', 'csv')
 	
 func _on_ConfigButton_pressed() -> void:
-	if self.verifyPaths():
+	if true:
 		menu.propagate_call('queue_free', [])
 		
 		self.add_child(config)

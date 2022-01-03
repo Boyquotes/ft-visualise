@@ -49,20 +49,20 @@ margin_right = 93.0
 margin_bottom = 17.0
 text = "..."
 
-[node name="XMLContainer" type="HBoxContainer" parent="ConfigStackContainer/ConfigLoadListContainer"]
+[node name="CSVContainer" type="HBoxContainer" parent="ConfigStackContainer/ConfigLoadListContainer"]
 margin_top = 24.0
 margin_right = 734.0
 margin_bottom = 44.0
 
-[node name="XMLButton" type="Button" parent="ConfigStackContainer/ConfigLoadListContainer/XMLContainer"]
-margin_right = 73.0
+[node name="CSVButton" type="Button" parent="ConfigStackContainer/ConfigLoadListContainer/CSVContainer"]
+margin_right = 69.0
 margin_bottom = 20.0
-text = "Load XML"
+text = "Load CSV"
 
-[node name="XMLLabel" type="Label" parent="ConfigStackContainer/ConfigLoadListContainer/XMLContainer"]
-margin_left = 77.0
+[node name="CSVLabel" type="Label" parent="ConfigStackContainer/ConfigLoadListContainer/CSVContainer"]
+margin_left = 73.0
 margin_top = 3.0
-margin_right = 89.0
+margin_right = 85.0
 margin_bottom = 17.0
 text = "..."
 
