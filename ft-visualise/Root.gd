@@ -201,6 +201,7 @@ func _on_ConfigButton_pressed() -> void:
 		
 func _on_LaunchButton_pressed() -> void:
 	var loader = AudioFileLoader.new()
+	self.add_child(loader)
 	
 	loader.loadAudio(GlobalPaths.audio_paths)
 
