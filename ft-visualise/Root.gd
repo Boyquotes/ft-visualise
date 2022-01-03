@@ -181,7 +181,7 @@ func _on_CSV_pressed() -> void:
 	setupDialog(config, '*.csv ; CSV Files', 'csv')
 	
 func _on_ConfigButton_pressed() -> void:
-	if true:
+	if self.verifyPaths():
 		menu.propagate_call('queue_free', [])
 		
 		self.add_child(config)
