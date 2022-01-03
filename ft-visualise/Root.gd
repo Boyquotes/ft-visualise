@@ -8,6 +8,9 @@ var labels_config = {}
 var menu = null
 var config = null
 
+# Constants
+const AudioFileLoader = preload('res://ft-visualise/FileHandler/Loader.gd')
+
 func _ready():
 	menu = create_instance('res://ft-visualise/UI/Menu.tscn')
 	config = create_instance('res://ft-visualise/UI/Config.tscn')
@@ -139,8 +142,11 @@ func verifyPaths() -> bool:
 		elif not path.text.begins_with('/'):
 			# Linux-specific path checks.
 			errors.append('%s path invalid.' % path.name)
+		else:
+			GlobalPaths.audio_paths.append(path.text)
 	
 	if 0 < len(errors):
+		GlobalPaths.audio_paths = []
 		return false
 	else:
 		return true
@@ -194,7 +200,9 @@ func _on_ConfigButton_pressed() -> void:
 		notify_error.popup()
 		
 func _on_LaunchButton_pressed() -> void:
-	pass
+	var loader = AudioFileLoader.new()
+	
+	loader.loadAudio(GlobalPaths.audio_paths)
 
 func _on_FileFinder_path_selected(path : String, ident : String):
 	if labels_menu.has(ident) and labels_menu[ident]:
