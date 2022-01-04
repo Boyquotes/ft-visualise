@@ -1,6 +1,5 @@
 extends Node
 
-var errors = []
 var labels_menu = {}
 var labels_config = {}
 
@@ -132,20 +131,20 @@ func verifyPaths() -> bool:
 	for path in labels_menu.values():
 		if not path:
 			# Label has been lost from the scene.
-			errors.append('Non-existent label object provided.')
+			GlobalPaths.errors.append('Non-existent label object provided.')
 		elif not path.text:
 			# Label text is missing.
-			errors.append('%s path missing.' % path.name)
+			GlobalPaths.errors.append('%s path missing.' % path.name)
 		elif '...' == path.text:
 			# String still hasn't been modified since launch.
-			errors.append('%s path missing.' % path.name)
+			GlobalPaths.errors.append('%s path missing.' % path.name)
 		elif not path.text.begins_with('/'):
 			# Linux-specific path checks.
-			errors.append('%s path invalid.' % path.name)
+			GlobalPaths.errors.append('%s path invalid.' % path.name)
 		else:
 			GlobalPaths.audio_paths.append(path.text)
 	
-	if 0 < len(errors):
+	if 0 < len(GlobalPaths.errors):
 		GlobalPaths.audio_paths = []
 		return false
 	else:
@@ -158,38 +157,24 @@ func verifyConfig() -> bool:
 	for path in labels_config.values():
 		if not path:
 			# Label has been lost from the scene.
-			errors.append('Non-existent label object provided.')
+			GlobalPaths.errors.append('Non-existent label object provided.')
 		elif not path.text:
 			# Label text is missing.
-			errors.append('%s path missing.' % path.name)
+			GlobalPaths.errors.append('%s path missing.' % path.name)
 		elif '...' == path.text:
 			# String still hasn't been modified since launch.
-			errors.append('%s path missing.' % path.name)
+			GlobalPaths.errors.append('%s path missing.' % path.name)
 		elif not path.text.begins_with('/'):
 			# Linux-specific path checks.
-			errors.append('%s path invalid.' % path.name)
+			GlobalPaths.errors.append('%s path invalid.' % path.name)
 		else:
 			GlobalPaths.config_paths.append(path.text)
 	
-	if 0 < len(errors):
+	if 0 < len(GlobalPaths.errors):
 		GlobalPaths.config_paths = []
 		return false
 	else:
 		return true
-	
-func getErrorStrings() -> String:
-	var output = ''
-	
-	for error in errors:
-		output += (error + '\n')
-		
-	# Remove existing errors to avoid later duplication.
-	self.clearErrors()
-		
-	return output
-	
-func clearErrors() -> void:
-	self.errors = []
 	
 func _on_Pulse1_pressed() -> void:
 	setupDialog(menu, '*.wav ; WAV Files', 'pulse1')
@@ -219,12 +204,7 @@ func _on_ConfigButton_pressed() -> void:
 		self.add_child(config)
 		self.formatConfigElements(config)
 	else:
-		var notify_error = AcceptDialog.new()
-		notify_error.dialog_text = 'Invalid file path(s) provided.\n\n' + self.getErrorStrings()
-		
-		self.add_child(notify_error)
-		notify_error.popup_centered_clamped()
-		notify_error.popup()
+		GlobalPaths.displayError(self, 'Invalid file path(s) provided:')
 		
 func _on_LaunchButton_pressed() -> void:
 	if self.verifyConfig():
@@ -235,12 +215,7 @@ func _on_LaunchButton_pressed() -> void:
 		
 		loader.loadAudio(GlobalPaths.audio_paths)
 	else:
-		var notify_error = AcceptDialog.new()
-		notify_error.dialog_text = 'Invalid config path(s) provided.\n\n' + self.getErrorStrings()
-		
-		self.add_child(notify_error)
-		notify_error.popup_centered_clamped()
-		notify_error.popup()
+		GlobalPaths.displayError(self, 'Invalid config path(s) provided:')
 
 func _on_FileFinder_path_selected(path : String, ident : String):
 	if labels_menu.has(ident) and labels_menu[ident]:
