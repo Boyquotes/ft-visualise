@@ -150,6 +150,32 @@ func verifyPaths() -> bool:
 		return false
 	else:
 		return true
+		
+func verifyConfig() -> bool:
+	if 2 != len(labels_config):
+		self.errors.append('Full path data not provided for config.')
+		
+	for path in labels_config.values():
+		if not path:
+			# Label has been lost from the scene.
+			errors.append('Non-existent label object provided.')
+		elif not path.text:
+			# Label text is missing.
+			errors.append('%s path missing.' % path.name)
+		elif '...' == path.text:
+			# String still hasn't been modified since launch.
+			errors.append('%s path missing.' % path.name)
+		elif not path.text.begins_with('/'):
+			# Linux-specific path checks.
+			errors.append('%s path invalid.' % path.name)
+		else:
+			GlobalPaths.config_paths.append(path.text)
+	
+	if 0 < len(errors):
+		GlobalPaths.config_paths = []
+		return false
+	else:
+		return true
 	
 func getErrorStrings() -> String:
 	var output = ''
@@ -194,16 +220,27 @@ func _on_ConfigButton_pressed() -> void:
 		self.formatConfigElements(config)
 	else:
 		var notify_error = AcceptDialog.new()
-		notify_error.dialog_text = "Invalid file path(s) provided.\n\n" + self.getErrorStrings()
+		notify_error.dialog_text = 'Invalid file path(s) provided.\n\n' + self.getErrorStrings()
+		
 		self.add_child(notify_error)
 		notify_error.popup_centered_clamped()
 		notify_error.popup()
 		
 func _on_LaunchButton_pressed() -> void:
-	var loader = AudioFileLoader.new()
-	self.add_child(loader)
-	
-	loader.loadAudio(GlobalPaths.audio_paths)
+	if self.verifyConfig():
+		config.propagate_call('queue_free', [])
+		
+		var loader = AudioFileLoader.new()
+		self.add_child(loader)
+		
+		loader.loadAudio(GlobalPaths.audio_paths)
+	else:
+		var notify_error = AcceptDialog.new()
+		notify_error.dialog_text = 'Invalid config path(s) provided.\n\n' + self.getErrorStrings()
+		
+		self.add_child(notify_error)
+		notify_error.popup_centered_clamped()
+		notify_error.popup()
 
 func _on_FileFinder_path_selected(path : String, ident : String):
 	if labels_menu.has(ident) and labels_menu[ident]:
