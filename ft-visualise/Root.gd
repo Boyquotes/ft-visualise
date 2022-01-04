@@ -214,6 +214,8 @@ func _on_LaunchButton_pressed() -> void:
 		self.add_child(loader)
 		
 		loader.loadAudio(GlobalPaths.audio_paths)
+		loader.loadConfig(GlobalPaths.config_paths)
+		loader.loadComplete()
 	else:
 		GlobalPaths.displayError(self, 'Invalid config path(s) provided:')
 

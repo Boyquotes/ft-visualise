@@ -25,3 +25,6 @@ func loadAudio(streams : Array) -> void:
 	
 func loadConfig(data : Array) -> void:
 	pass
+	
+func loadComplete() -> void:
+	self.propagate_call('queue_free', [])
