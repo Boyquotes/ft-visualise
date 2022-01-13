@@ -1,13 +1,8 @@
 extends Node
 
-onready var wave_table = []
-onready var config_table = []
-
 func loadAudio(streams : Array) -> void:
 	for stream in streams:
-		var file = File.new()
-		
-		if file.file_exists(stream):
+		if localDataExists(stream):
 			# AudioStreamSample nodes are used for WAV file processing
 			# and playback.
 			var sample = AudioStreamSample.new()
@@ -23,8 +18,21 @@ func loadAudio(streams : Array) -> void:
 			# loading and processing has been completed.
 			get_tree().get_current_scene().add_child(player)
 	
-func loadConfig(data : Array) -> void:
-	pass
+func loadConfig(raw_data : Array) -> void:
+	for config in raw_data:
+		if localDataExists(config):
+			continue
 	
 func loadComplete() -> void:
 	self.propagate_call('queue_free', [])
+
+# Local file storage checking to ensure
+# paths exist before attempting to
+# load any data in said files.
+func localDataExists(file : String) -> bool:
+	var temp = File.new()
+	
+	if not temp.file_exists(file):
+		return false
+	else:
+		return true
